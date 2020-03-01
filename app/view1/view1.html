@@ -1,0 +1,117 @@
+<!--
+<p>This is the partial for view 1.</p>
+
+<div>
+    <div class="row">
+       <label>First Name</label>
+       <input type="text" ng-model="vm.firstName"/>
+    </div>
+    <div class="row">
+       <label>Last Name</label>
+       <input type="text" ng-model="vm.lastName"/>
+    </div>
+    <div class="row">
+        <label>Email</label>
+        <input type="text" ng-model="vm.email"/>
+    </div>
+    <div class="row">
+        <label>Phone Number</label>
+        <input type="number" ng-model="vm.phoneNumber"/>
+    </div>
+    <div class="row">
+        <label>Status</label>
+        <div class="radio-inline" ng-model="vm.status">
+            <div><input type="radio" name="active" value="Active"><label>Active</label></div>
+            <div><input type="radio" name="inactive" value="Inactive"><label>Inactive</label></div>
+        </div>
+    </div>
+    <br>
+    <div><button ng-click="vm.onSaveDetails()">Save Details</button></div>
+
+</div>
+
+-->
+<form name="contactForm" novalidate>
+    <table>
+        <tbody>
+        <tr>
+            <td>First Name</td>
+            <td><input type="text" ng-model="vm.newContact.firstName" required/>
+                <input type="hidden" ng-model="vm.newContact.id" />
+            </td>
+        </tr>
+        <tr>
+            <td>Last Name</td>
+            <td><input type="text" ng-model="vm.newContact.lastName" required/>
+            </td>
+        </tr>
+        <tr><td>Email</td>
+            <td> <input type="email" ng-model="vm.newContact.email" required/>
+            </td>
+        </tr>
+        <tr><td>Phone Number</td>
+            <td><input type="number" ng-model="vm.newContact.phoneNumber" maxlength="10" required/>
+            </td>
+        </tr>
+        <tr><td>Status</td>
+            <td> <span class="radio-inline" required>
+                <input type="radio" ng-model="vm.newContact.status" name="active" value="Active" required><label>Active</label>
+                <input type="radio" ng-model="vm.newContact.status" name="inactive" value="Inactive" required><label>Inactive</label>
+            </span></td></tr>
+
+        </tbody>
+    </table>
+    <br>
+    <button type="submit" ng-class="{ submitted: vm.submitted }" ng-click="vm.submit(newContact)">Submit</button>
+    <button type="submit" ng-click="vm.listContacts(newContact)">Get Contacts List</button>
+</form>
+
+<br>
+<table border="1" bordercolor="blue" ng-if="vm.showList">
+
+    <tr style="color:black">
+
+        <th style="width:150px">First Name</th>
+
+        <th style="width:150px">Last Name</th>
+
+        <th style="width:150px">Email</th>
+        <th style="width:150px">Phone Number</th>
+        <th style="width:150px">Status</th>
+
+        <th>Action</th>
+
+    </tr>
+
+    <tr style="color:black" ng-repeat="ar in vm.contactsListArray">
+
+        <td>{{ ar.firstName }}</td>
+
+        <td>{{ ar.lastName }}</td>
+
+        <td>{{ ar.phoneNumber }}</td>
+
+        <td>{{ ar.email }}</td>
+
+        <td>{{ ar.status }}</td>
+        <td>
+
+
+            <a ng-click="vm.edit(ar.id)">edit</a> |
+
+            <a ng-click="vm.delete(ar.id)">delete</a>
+
+        </td>
+
+    </tr>
+
+</table>
+<style>
+    .validation-message {
+        color: #f00;
+    }
+    input.ng-invalid {
+        border: 1px solid #f00;
+        background-color: #fee;
+    }
+</style>
